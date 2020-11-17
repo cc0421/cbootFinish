@@ -1,5 +1,7 @@
 package com.lz.ht.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.lz.ht.result.Result;
 import com.lz.ht.model.Resources;
 import com.lz.ht.model.RoleResources;
@@ -41,17 +43,32 @@ public class ResourcesController extends BaseController{
         return "resources/resources_list";
     }
 
-
+//    @RequestMapping(value = "/resources/list",method = {RequestMethod.POST})
+//    @ResponseBody
+//    public PageModel list(Resources resources, PageModel<Resources> page)throws Exception{
+//        page.init();
+//        List<Resources> list = resourcesServiceImpl.findPageList(page,resources);
+//        long count = resourcesServiceImpl.findCount(resources);
+//        page.packData(count,list);
+//        return page;
+//    }
 
     @RequestMapping(value = "/resources/list",method = {RequestMethod.POST})
     @ResponseBody
-    public PageModel list(Resources resources, PageModel<Resources> page)throws Exception{
-           page.init();
-           List<Resources> list = resourcesServiceImpl.findPageList(page,resources);
-           long count = resourcesServiceImpl.findCount(resources);
-           page.packData(count,list);
-           return page;
+    public PageModel list(Resources resources , PageModel<Resources> pageModel)throws Exception{
+        pageModel.init();//分析返回的数据：pageSize  currentage
+        //调用pageHelper
+        PageHelper.startPage((int)pageModel.getCurrentPageNum(),(int)pageModel.getPageSize());
+        //业务数据
+        PageInfo<Resources> pageInfo =
+                new PageInfo<Resources>(this.resourcesServiceImpl.findList(resources));
+
+        //组装数据返回到客户端，使用的为springboot默认的Json包 spring-boot-starter-json 依赖：
+        pageModel.packData(pageInfo.getTotal(),pageInfo.getList());
+        return pageModel;
     }
+
+
 
     @RequestMapping(value = "/resources/add",method = {RequestMethod.GET})
     public String addInit(Resources resources,Model model){
