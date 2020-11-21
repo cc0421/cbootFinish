@@ -29,4 +29,7 @@ public interface ResourcesService {
 
     long findCountByMap(HashMap<String,Object> hashMap);
 
+    Long findRoleIdByUserId(Long userId);
+
+    Resources findByresKey(long resKey);
 }

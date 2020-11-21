@@ -87,5 +87,15 @@ public class ResourcesServiceImpl  implements  ResourcesService {
         return resourcesMapper.findCountByMap(hashMap);
     }
 
+    @Override
+    public Long findRoleIdByUserId(Long userId){
+        return resourcesMapper.findRoleIdByUserId(userId);
+    }
 
- }
+    @Override
+    public Resources findByresKey(long resKey) {
+        return resourcesMapper.findByresKey(resKey);
+    }
+
+
+}

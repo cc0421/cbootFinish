@@ -1,6 +1,7 @@
 package com.lz.ht.dao;
 
 import com.lz.ht.model.Resources;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.HashMap;
@@ -28,4 +29,7 @@ public interface ResourcesMapper {
 
     List<Resources> findListByMapLimit(HashMap<String,Object> hashMap);
 
+    Long findRoleIdByUserId(@Param("userId") Long userId);
+
+    Resources findByresKey(long resKey);
 }

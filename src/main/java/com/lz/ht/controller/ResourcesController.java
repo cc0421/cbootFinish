@@ -2,12 +2,14 @@ package com.lz.ht.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lz.ht.model.Role;
 import com.lz.ht.result.Result;
 import com.lz.ht.model.Resources;
 import com.lz.ht.model.RoleResources;
 import com.lz.ht.page.PageModel;
 import com.lz.ht.result.Result;
 import com.lz.ht.service.ResourcesService;
+import com.lz.ht.service.RoleService;
 import com.lz.ht.util.JwtUtil;
 import com.lz.ht.base.BaseController;
 import com.lz.ht.constant.SysConstant;
@@ -18,6 +20,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +40,8 @@ public class ResourcesController extends BaseController{
     @Autowired
     private ResourcesService resourcesServiceImpl;
 
+    @Autowired
+    private RoleService roleServiceImpl;
 
     @RequestMapping(value = "/resources/list",method = {RequestMethod.GET})
     public String resources_list()throws Exception{
@@ -82,9 +87,10 @@ public class ResourcesController extends BaseController{
         return Result.genSuccessResult();
     }
 
+    // 这个地方有问题
     @RequestMapping(value = "/resources/update",method = {RequestMethod.GET})
     public String updateInit(Resources resources,Model model){
-        resources = resourcesServiceImpl.findById(resources.getId());
+        resources = resourcesServiceImpl.findByresKey(resources.getId());
         model.addAttribute("resources",resources);
         return "resources/resources_update";
     }
@@ -208,10 +214,47 @@ public class ResourcesController extends BaseController{
         }
         return "error/error";
     }
+    @RequestMapping(value = "/resources/management",method = {RequestMethod.GET})
+    public String roleResourceInit(Role role, Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        Session session = subject.getSession();
+        Long userId = (Long) session.getAttribute("loginUserId");
 
+        Long roleId = resourcesServiceImpl.findRoleIdByUserId(userId);
+        //String rolekey = (String) session.getAttribute("loginUserId");
 
+        role = roleServiceImpl.findById(roleId);
+        //根据role 查找roleResource表中，本角色管理的资源
+        //SELECT  t.id AS id, t.deptName AS `name`, t.parentId pId , 'true' AS `open` FROM t_dept t
+        String roleKey = role.getRoleKey();
+        //1.查询所有的资源列表
+        //2.查询角色对应的资源
+        //3.遍历所有资源列表，如果角色对应的资源列表中有，就给他标识为选中状态
+        String sql = "    SELECT  res.resKey AS id, " +
+                "    res.name AS name, " +
+                "    res.presKey AS pId, " +
+                "    'true' AS open,     " +
+                "    CASE WHEN   res.resKey IN ( SELECT r.resKey FROM t_role_resources r WHERE r.roleKey = "+
+                "  #{roleKey} )  THEN 'true' ELSE 'false' END AS checked  " +
+                " FROM  t_resources res ";
 
+        List<Map> selectList = sqlMapper.selectList(sql,  roleKey, Map.class);
 
+        model.addAttribute("treeNodes",toJson(selectList));
+        model.addAttribute("roleKey",roleKey);
+        return "resources/resources_management";
+    }
+
+    @RequestMapping(value = "/resources/managelist",method = {RequestMethod.GET})
+    @ResponseBody
+    public Map<String ,Object> manageList(int resKey){
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        Resources resources = resourcesServiceImpl.findByresKey((long) resKey);
+        System.out.println(resources);
+        //model.addAttribute("resources",resources);
+        modelMap.put("data", resources);
+        return modelMap;
+    }
 
 
     private String select_radioPage(Model model){
