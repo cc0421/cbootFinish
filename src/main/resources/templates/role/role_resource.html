@@ -18,7 +18,7 @@
     </div>
 </div>
 </body>
-</html>
+
 <!--引入layer之前需要引入jquery-->
 <script th:src="@{/system/js/jquery.min.js}" charset="utf-8"></script>
 <script th:src="@{/alllayui/layui/layui.js}" charset="utf-8"></script>
@@ -29,9 +29,11 @@
 <script  th:inline="javascript" >
     var treeJsonStr =  [[${treeNodes}]];
     var roleKey = [[${roleKey}]];
-    //console.log(coverOtherColumnValueJson);
+    // console.log(treeJsonStr);
+    // console.log(roleKey);
+    // console.log(coverOtherColumnValueJson);
     var zNodes = JSON.parse(treeJsonStr);
-    //console.log(zNodes);
+    // console.log(zNodes);
     simpleChooseFun = function(e, treeId, treeNode){
         var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
         var chooseNodes = treeObj.getCheckedNodes(true);
@@ -69,7 +71,6 @@
         }
     };
 
-
     var thisIndex = parent.layer.getFrameIndex(window.name);
     var parentLayer = parent.layer;
     var pWindow = parent ;
@@ -91,7 +92,6 @@
             	 } 
              }
              //传递到后台保存
-            
              $.post("/role/roleResource",{"resKeys":resKeys,"roleKey":roleKey},function(data){
             	 parentLayer.msg(data.message);
             	 parentLayer.close(thisIndex);
@@ -102,3 +102,4 @@
     });
 
 </script>
+</html>

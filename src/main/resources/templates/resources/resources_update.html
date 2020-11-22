@@ -46,7 +46,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">父资源名称</label>
                     <div class="layui-input-block">
-                                <input type="text" name='pName'  th:value='${resources.pName}' lay-verify="required" lay-reqtext="父资源名称为必填项" placeholder="请输入父资源名称" autocomplete="off" class="layui-input">
+                                <input type="text" name='pName'  th:value='${resources.getPName()}' lay-verify="required" lay-reqtext="父资源名称为必填项" placeholder="请输入父资源名称" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -107,7 +107,7 @@
         var pWindow = parent ;
         form.on('submit(subBtn)', function(data){
             let data2Send = data.field;
-            $.post("/resources/update",data2Send,function (res) {
+            $.post("/resources/updatein",data2Send,function (res) {
                 var msg = "";
                 if(res.message == 'SUCCESS'){
                     msg = '修改成功!窗口关闭';
@@ -119,7 +119,8 @@
                     time: 2000
                 }, function(){
                     parentLayer.close(thisIndex);
-                    pWindow.document.getElementById('treeDemo').click();
+                    // pWindow.ajaxGet(data2Send.resKey);
+                    pWindow.location.reload()
                 });
             },"json");
         });

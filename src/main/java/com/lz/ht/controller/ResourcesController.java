@@ -86,25 +86,27 @@ public class ResourcesController extends BaseController{
         resourcesServiceImpl.add(resources);
         return Result.genSuccessResult();
     }
-
-    // 这个地方有问题
+    
     @RequestMapping(value = "/resources/update",method = {RequestMethod.GET})
-    public String updateInit(Resources resources,Model model){
-        resources = resourcesServiceImpl.findByresKey(resources.getId());
+    public String updateInit(int resKey,Model model){
+        Resources resources = resourcesServiceImpl.findByresKey((long) resKey);
         model.addAttribute("resources",resources);
         return "resources/resources_update";
     }
 
-    @RequestMapping(value = "/resources/update",method = {RequestMethod.POST})
+    @RequestMapping(value = "/resources/updatein",method = {RequestMethod.POST})
     @ResponseBody
     public Result update(Resources resources){
         resourcesServiceImpl.updateById(resources);
         return Result.genSuccessResult();
     }
 
+
+    // 有问题，改为根据resKey
     @RequestMapping(value = "/resources/delete",method = {RequestMethod.POST})
     @ResponseBody
-    public Result delete(Resources resources){
+    public Result delete(int resKey){
+        Resources resources = resourcesServiceImpl.findByresKey((long) resKey);
     	  
     	// 若此资源有子资源也不能删除
     	String sql = "SELECT * FROM t_resources tmp WHERE tmp.presKey = ( " + 
