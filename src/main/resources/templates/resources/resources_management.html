@@ -23,20 +23,19 @@
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                 <legend>资源详情</legend>
             </fieldset>
-            <script type="text/html">
-                <div class="layui-btn-container" id="btnGroup">
-                    <shiro:hasPermission name="resources/add">
-                        <button id="add" class="layui-btn layui-btn-sm" lay-event="add">新增</button>
-                    </shiro:hasPermission>
+            <div class="layui-btn-container" id="btnGroup">
+                <shiro:hasPermission name="resources/add">
+                    <button id="add" class="layui-btn layui-btn-sm" lay-event="add">新增</button>
+                </shiro:hasPermission>
 
-                    <shiro:hasPermission name="resources/update">
-                        <a id="edit" class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
-                    </shiro:hasPermission>
-                    <shiro:hasPermission name="resources/delete">
-                        <a id="del" class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
-                    </shiro:hasPermission>
-                </div>
-            </script>
+                <shiro:hasPermission name="resources/update">
+                    <a id="edit" class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="resources/delete">
+                    <a id="del" class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+                </shiro:hasPermission>
+            </div>
+
 
             <form class="layui-form" action="">
                 <input type="hidden" name="id" id="menuId">
