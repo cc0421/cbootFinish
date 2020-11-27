@@ -40,7 +40,7 @@ public class DeptController extends BaseController{
         return "dept/dept_list";
     }
 
-
+//
 
     @RequestMapping(value = "/dept/list",method = {RequestMethod.POST})
     @ResponseBody
