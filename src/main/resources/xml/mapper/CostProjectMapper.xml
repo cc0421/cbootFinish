@@ -148,4 +148,8 @@
       USER_ID = #{userId,jdbcType=INTEGER}
     where project_id = #{projectId,jdbcType=INTEGER}
   </update>
+
+  <select id="findById" resultMap="BaseResultMap"   parameterType="java.lang.Integer" >
+        select * from  cost_project t  WHERE project_id = #{projectId,jdbcType=BIGINT}
+  </select>
 </mapper>

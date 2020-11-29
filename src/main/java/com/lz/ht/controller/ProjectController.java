@@ -60,12 +60,12 @@ public class ProjectController {
         return Result.genSuccessResult();
     }
 
-//    @RequestMapping(value = "/project/update",method = {RequestMethod.GET})
-//    public String updateInit(CostProject costProject,Model model){
-//        costProject = costProjectMapper.findById(costProject.getProjectId());
-//        model.addAttribute("costProject",costProject);
-//        return "project/project_update";
-//    }
+    @RequestMapping(value = "/project/update",method = {RequestMethod.GET})
+    public String updateInit(CostProject costProject,Model model){
+        costProject = costProjectMapper.findById(costProject.getProjectId());
+        model.addAttribute("costProject",costProject);
+        return "project/project_update";
+    }
 
     @RequestMapping(value = "/project/update",method = {RequestMethod.POST})
     @ResponseBody

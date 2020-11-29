@@ -18,4 +18,6 @@ public interface CostProjectMapper {
     int updateByPrimaryKey(CostProject record);
 
     List<CostProject> findAll();
+
+    CostProject findById(Integer project);
 }
