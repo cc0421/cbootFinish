@@ -20,4 +20,6 @@ public interface CostProjectMapper {
     List<CostProject> findAll();
 
     CostProject findById(Integer project);
+
+    List<CostProject> findByName(String projectName);
 }

@@ -26,6 +26,55 @@
                                 <input type="text" name='projectName'  th:value='${costProject.projectName}' lay-verify="required" lay-reqtext="名称为必填项" placeholder="请输入名称" autocomplete="off" class="layui-input">
                     </div>
                 </div>
+
+                     <div class="layui-inline">
+                         <label class="layui-form-label">项目编号</label>
+                         <div class="layui-input-inline">
+                             <input type="text" name='projectNum'  th:value='${costProject.projectNum}' lay-verify="required" lay-reqtext="名称为必填项" placeholder="请输入项目编号" autocomplete="off" class="layui-input">
+                         </div>
+                     </div>
+                     <div class="layui-inline">
+                         <label class="layui-form-label">开始时间</label>
+                         <div class="layui-input-inline">
+                             <input type="text" name='startDate'  th:value='${costProject.startDate}' lay-verify="required" lay-reqtext="名称为必填项" placeholder="请输入开始时间" autocomplete="off" class="layui-input datePicker">
+                         </div>
+                     </div>
+                     <div class="layui-inline">
+                         <label class="layui-form-label">计划完成时间</label>
+                         <div class="layui-input-inline">
+                             <input type="text" name='projectPlantime'  th:value='${costProject.projectPlantime}' lay-verify="required" lay-reqtext="名称为必填项" placeholder="请输入计划完成时间" autocomplete="off" class="layui-input datePicker">
+                         </div>
+                     </div>
+                     <div class="layui-inline">
+                         <label class="layui-form-label">合同金额</label>
+                         <div class="layui-input-inline">
+                             <input type="text" name='projectMoney'  th:value='${costProject.projectMoney}' lay-verify="required" lay-reqtext="名称为必填项" placeholder="请输入合同金额" autocomplete="off" class="layui-input">
+                         </div>
+                     </div>
+                     <div class="layui-inline">
+                         <label class="layui-form-label">已收款金额</label>
+                         <div class="layui-input-inline">
+                             <input type="text" name='projectInmoney'  th:value='${costProject.projectInmoney}' lay-verify="required" lay-reqtext="名称为必填项" placeholder="请输入已收款金额" autocomplete="off" class="layui-input">
+                         </div>
+                     </div>
+                     <div class="layui-inline">
+                         <label class="layui-form-label">负责人名字</label>
+                         <div class="layui-input-inline">
+                             <input type="text" name='userName'  th:value='${costProject.userName}' lay-verify="required" lay-reqtext="名称为必填项" placeholder="请输入负责人名字" autocomplete="off" class="layui-input">
+                         </div>
+                     </div>
+                     <div class="layui-inline">
+                         <label class="layui-form-label">合同对方ID</label>
+                         <div class="layui-input-inline">
+                             <input type="text" name='customerId'  th:value='${costProject.customerId}' lay-verify="required" lay-reqtext="名称为必填项" placeholder="请输入合同对方ID" autocomplete="off" class="layui-input">
+                         </div>
+                     </div>
+                     <div class="layui-inline">
+                         <label class="layui-form-label">用户ID</label>
+                         <div class="layui-input-inline">
+                             <input type="text" name='userId'  th:value='${costProject.userId}' lay-verify="required" lay-reqtext="名称为必填项" placeholder="请输入用户ID" autocomplete="off" class="layui-input">
+                         </div>
+                     </div>
 <!--		         <div class="layui-inline">  -->
 <!--		            <label class="layui-form-label">性别</label>-->
 <!--		            <div class="layui-input-inline">-->
@@ -100,6 +149,7 @@
 		        </div>
 		     
 		    </div>
+                 </div>
 </form>
 <script>
     layui.use(['jquery','form','laydate'], function(){

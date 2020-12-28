@@ -13,7 +13,7 @@
 <div class="searchTable">
     名称：
     <div class="layui-inline">
-        <input class="layui-input" name="userName" id="userName" autocomplete="off">
+        <input class="layui-input" name="projectName" id="projectName" autocomplete="off">
     </div>
 <!--  手机号：  -->
 <!--    <div class="layui-inline">-->
@@ -134,9 +134,9 @@
             reload: function(){
             	var queryWhere = {}; 
             	
-                var userName$_ = $('#userName');
+                var userName$_ = $('#projectName');
                 if(userName$_.val()!=''){
-                	 queryWhere['userName'] = userName$_.val();
+                	 queryWhere['projectName'] = userName$_.val();
                 }  
                 
                 // var phoneNo$_ = $('#phoneNo');
@@ -148,6 +148,8 @@
                     page: {
                         curr: 1 //重新从第 1 页开始
                     }
+                    ,url: '/project/queryProjectByName'
+                    ,method: 'POST'
                     ,where: queryWhere
                     ,done: function(res, curr, count){
                     	this.where= {};

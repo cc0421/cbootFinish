@@ -26,7 +26,7 @@ public class ProjectController {
 
     @RequestMapping(value = "/project/list",method = {RequestMethod.POST})
     @ResponseBody
-    public List<CostProject> queryAllUser(){
+    public List<CostProject> queryAllUser() {
         return costProjectMapper.findAll();
     }
 
@@ -38,6 +38,17 @@ public class ProjectController {
         PageInfo<CostProject> pageInfo = new PageInfo<>(costProjectMapper.findAll());
         return pageInfo;
     }
+
+    @RequestMapping(value = "/project/queryProjectByName",method = {RequestMethod.POST})
+    @ResponseBody
+    public PageInfo<CostProject> queryProjectByName(CostProject costProject, int currentPageNum, int pageSize)throws Exception{
+        //[pageNum, pageSize]  页码  每页显示数量
+        PageHelper.startPage(currentPageNum,pageSize);
+        PageInfo<CostProject> pageInfo = new PageInfo<>(costProjectMapper.findByName(costProject.getProjectName()));
+        return pageInfo;
+    }
+
+
     @RequestMapping(value = "/project/add",method = {RequestMethod.GET})
     public String addInit(CostProject costProject, Model model){
         return "project/project_add";

@@ -152,4 +152,11 @@
   <select id="findById" resultMap="BaseResultMap"   parameterType="java.lang.Integer" >
         select * from  cost_project t  WHERE project_id = #{projectId,jdbcType=BIGINT}
   </select>
+
+  <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cost_project
+    where project_Name = #{projectName}
+  </select>
 </mapper>
